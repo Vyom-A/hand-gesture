@@ -1,0 +1,16 @@
+body {
+text-align : center;
+}
+.head-div {
+background: aqua 25%;
+height: 25%;
+}
+.gestures {
+height : 12%;
+padding-top: 2px;
+width : 150px;
+border-color: black;
+border-radius: 25px;
+margin-left: 550px;
+margin-top: 5px;
+}
