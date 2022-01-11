@@ -12,22 +12,39 @@ Webcam.set({
 Webcam.attach(camera);
 
 function take_snapshot() {
-Webcam.snap(function (data_uri){
-document.getElementById("result").innerHTML = '<img id = "captured_image" src = "' + data_uri + '"/>';
-});
+    Webcam.snap(function (data_uri) {
+        document.getElementById("result").innerHTML = '<img id = "captured_image" src = "' + data_uri + '"/>';
+    });
 }
 
-console.log("Ml5 version is ",ml5.version);
+console.log("Ml5 version is ", ml5.version);
 
-classifier = ml5.imageClassifier("https://teachablemachine.withgoogle.com/models/3i_QujwjZ/model.json",modelLoaded);
+classifier = ml5.imageClassifier("https://teachablemachine.withgoogle.com/models/3i_QujwjZ/model.json", modelLoaded);
 
 function modelLoaded() {
-console.log("Model loaded");
+    console.log("Model loaded");
 }
 
 function speak() {
-var synth = window.speechSynthesis;
-var speak_data = "The predcition is " + prediction1;
-var utterthis = new SpeechSynthesisUtterance(speak_data);
-synth.speak(utterthis);
+    var synth = window.speechSynthesis;
+    var speak_data = "The predcition is " + prediction1;
+    var utterthis = new SpeechSynthesisUtterance(speak_data);
+    synth.speak(utterthis);
+}
+
+function check() {
+    img = document.getElementById("captured_image");
+    classifier.classify(img, gotResult);
+}
+
+function gotResult(error, results) {
+    if (error) {
+        console.error(error);
+    } else {
+        console.log(results);
+        document.getElementById("predict_gesture").innerHTML = results[0].label;
+        prediction1 = results[0].label;
+        speak();
+
+    }
 }
